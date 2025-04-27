@@ -1,0 +1,175 @@
+<div class="header-container">
+  <div class="search-bar-container">
+    <span class="search-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="icon"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </span>
+    <input
+      type="text"
+      id="search"
+      [(ngModel)]="searchTerm"
+      (input)="searchSetups()"
+    />
+  </div>
+  <button class="create-button" (click)="openAddSystemSetupModal()">
+    CREATE NEW EXTERNAL SYSTEM SETUP
+  </button>
+</div>
+
+<div class="setup-table-container">
+  <table class="setup-table">
+    <tbody>
+      <ng-container *ngFor="let setup of setups">
+        <tr
+          (click)="toggleExpand(setup.id)"
+          [class.expanded]="isExpanded(setup.id)"
+          style="cursor: pointer"
+        >
+          <td style="width: calc(100% - 30px)">{{ setup.name }}</td>
+          <td class="actions-column">
+            <i
+              class="bi"
+              [class.bi-chevron-down]="
+                isExpanded(setup.id) && !isEditing(setup.id)
+              "
+              [class.bi-chevron-right]="
+                !isExpanded(setup.id) && !isEditing(setup.id)
+              "
+            ></i>
+          </td>
+        </tr>
+        <tr class="expanded-row" *ngIf="isExpanded(setup.id)">
+          <td colspan="2">
+            <form (ngSubmit)="saveEdit(setup.id)" class="row g-3 expanded-form">
+              <div class="col-md-6">
+                <label for="name-{{ setup.id }}" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name-{{ setup.id }}"
+                  [(ngModel)]="editedSetup[setup.id].name"
+                  [name]="'name-' + setup.id"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="baseURL-{{ setup.id }}" class="form-label"
+                  >Base URL</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="baseURL-{{ setup.id }}"
+                  [(ngModel)]="editedSetup[setup.id].baseUrl"
+                  [name]="'baseURL-' + setup.id"
+                />
+              </div>
+              <div class="col-md-6">
+                <label
+                  for="authenticationMethod-{{ setup.id }}"
+                  class="form-label"
+                  >Authentication Method</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="authenticationMethod-{{ setup.id }}"
+                  [(ngModel)]="editedSetup[setup.id].authenticationMethod"
+                  [name]="'authenticationMethod-' + setup.id"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="key-{{ setup.id }}" class="form-label">Key</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="key-{{ setup.id }}"
+                  [(ngModel)]="editedSetup[setup.id].key"
+                  [name]="'key-' + setup.id"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="value-{{ setup.id }}" class="form-label"
+                  >Value</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="value-{{ setup.id }}"
+                  [(ngModel)]="editedSetup[setup.id].value"
+                  [name]="'value-' + setup.id"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Authentication Place</label>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    id="header-{{ setup.id }}"
+                    value="Header"
+                    [(ngModel)]="editedSetup[setup.id].authenticationPlace"
+                    [name]="'authenticationPlace-' + setup.id"
+                    [value]="'Header'"
+                  />
+                  <label class="form-check-label" for="header-{{ setup.id }}"
+                    >Header</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    id="queryParams-{{ setup.id }}"
+                    value="Query Parameters"
+                    [(ngModel)]="editedSetup[setup.id].authenticationPlace"
+                    [name]="'authenticationPlace-' + setup.id"
+                    [value]="'Query Parameters'"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="queryParams-{{ setup.id }}"
+                    >Query Parameters</label
+                  >
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-sm btn-success me-2">
+                  Save
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-secondary"
+                  (click)="toggleExpand(setup.id)"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div class="pagination-container">
+    <ngb-pagination
+      [collectionSize]="totalSetups"
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      (pageChange)="handlePageChange($event)"
+      [maxSize]="5"
+      [rotate]="true"
+      [boundaryLinks]="true"
+    ></ngb-pagination>
+  </div>
+  <div style="clear: both"></div>
+</div>
