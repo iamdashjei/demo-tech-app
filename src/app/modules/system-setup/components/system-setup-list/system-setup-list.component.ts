@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SystemSetupService } from '../../../../core/services/system-setup.service';
 import { SystemSetup } from '../../../../core/models/system-setup.model';
@@ -23,16 +23,20 @@ export class SystemSetupListComponent implements OnInit {
   private modalService = inject(NgbModal);
   private http = inject(HttpClient);
   modalRef?: NgbModalRef;
+
   setups: SystemSetup[] = [];
   totalSetups: number = 0;
   currentPage: number = 1;
+  pageIndex: number = 0;
   pageSize: number = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
   searchTerm: string = '';
   apiUrl = 'http://localhost:8080/api/v1/system-setups';
 
   editingSetupId: number | null = null;
   expandedSetupId: number | null = null;
   editedSetup: { [id: number]: SystemSetup } = {};
+
 
   ngOnInit(): void {
     this.loadSetups();
@@ -52,8 +56,9 @@ export class SystemSetupListComponent implements OnInit {
       });
   }
 
-  handlePageChange(event: number): void {
-    this.currentPage = event;
+  handlePageEvent(event: number): void {
+    this.pageSize = event;
+    this.pageIndex = event;
     this.loadSetups();
   }
 

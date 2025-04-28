@@ -1,77 +1,111 @@
 .header-container {
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    gap: 16px; 
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 16px;
 }
-  
-.search-bar-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 8px;
-}
-  
-.search-icon {
-    margin-right: 8px;
-    color: #777;
-}
-  
-.search-icon svg {
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-}
-  
-.search-bar-container input[type="text"] {
-    border: none;
-    padding: 8px;
-    outline: none;
-}
-  
-.create-button {
-    background: none;
-    color: #007bff;
-    border: none; 
-    padding: 0; 
-    cursor: pointer;
-    font-size: 1em; 
-    text-decoration: none; 
-    font-weight: bold; 
-  }
-  
-  .create-button:hover {
-    text-decoration: underline;
-  }
-  
-  .create-button:focus {
-    outline: none;
-    border: 1px solid #007bff;
-    border-radius: 2px;
-  }
 
-.consumer-table-container { 
-    width: 100%;
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
 }
-  
+
+.search-icon {
+  margin-right: 8px;
+  color: #777;
+}
+
+.search-icon svg {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.search-bar-container input[type="text"] {
+  border: none;
+  padding: 8px;
+  outline: none;
+}
+
+.create-button {
+  background: none;
+  color: #007bff;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1em;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.consumer-table-container {
+  position: relative;
+}
+
 .consumer-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+}
+
+.consumer-table tbody td {
+  text-align: left;
+}
+
+.consumer-table tbody td {
+  text-align: left;
+}
+
+.consumer-table tbody tr > .actions-column {
+  text-align: right;
+  width: 30px;
+}
+
+.consumer-table tbody tr > td:first-child {
+  width: calc(100% - 30px);
+}
+
+.pagination-container {
+  float: right;
+  padding: 10px 0;
 }
 
 th,
 td {
-    border-bottom: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: left;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
 }
-  
+
 th {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
-  
-.pagination-controls {
-    display: flex;
-    justify-content: center;
+
+:host ::ng-deep .pagination {
+  margin-bottom: 0;
 }
+
+:host ::ng-deep .page-item {
+  margin-left: 5px;
+}
+
+// Forms
+.expanded-form {
+  padding: 10px;
+}
+
+/* Optional overrides if Bootstrap's default spacing isn't what you want */
+.expanded-form .col-md-6 {
+  margin-bottom: 8px; /* Adjust vertical spacing between rows */
+}
+
+.expanded-form .form-label {
+  font-weight: bold;
+}
+
+/* Adjust alignment of radio buttons if needed */
+.expanded-form .form-check-inline {
+  margin-right: 15px;
+}
+

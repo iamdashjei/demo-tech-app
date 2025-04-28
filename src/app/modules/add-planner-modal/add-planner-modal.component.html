@@ -1,23 +1,69 @@
 <div class="modal-header">
   <h4 class="modal-title">Add New Planner</h4>
-  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="closeModal()"
+  ></button>
 </div>
 <div class="modal-body">
   <form (ngSubmit)="onSubmit(plannerForm)" #plannerForm="ngForm">
     <div class="form-group">
-      <label for="name">Planner Name:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="planner.name" required>
-      <div *ngIf="plannerForm.controls['name']?.invalid && (plannerForm.controls['name']?.dirty || plannerForm.controls['name']?.touched)" class="error-message">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="planner.name"
+        required
+      />
+      <div
+        *ngIf="
+          plannerForm.controls['name']?.invalid &&
+          (plannerForm.controls['name']?.dirty ||
+            plannerForm.controls['name']?.touched)
+        "
+        class="error-message"
+      >
         Planner Name is required.
       </div>
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
-      <textarea id="description" name="description" [(ngModel)]="planner.description"></textarea>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        [(ngModel)]="planner.name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="plannerType">Planner Type:</label>
+      <input
+        type="text"
+        id="plannerType"
+        name="plannerType"
+        [(ngModel)]="planner.name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="externalSystemConfig">External System Config:</label>
+      
     </div>
     <div class="modal-footer">
-      <button type="button" class="cancel-button" (click)="closeModal()">Cancel</button>
-      <button type="submit" class="submit-button" [disabled]="plannerForm.invalid">Save</button>
+      <button type="button" class="cancel-button" (click)="closeModal()">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="plannerForm.invalid"
+      >
+        Save
+      </button>
     </div>
   </form>
 </div>

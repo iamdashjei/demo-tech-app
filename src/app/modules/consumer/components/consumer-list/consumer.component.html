@@ -7,22 +7,60 @@
       </span>
       <input type="text" id="search" [(ngModel)]="searchTerm" (input)="searchConsumers()">
     </div>
+    <!-- <a routerLink="/new-planner" class="create-button"> CREATE NEW PLANNER
+    </a> -->
     <button class="create-button" (click)="openAddPlannerModal()">CREATE NEW PLANNER</button>
 </div>
 
+
+
 <div class="consumer-table-container">
     <table class="consumer-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-        </thead>
         <tbody>
-            <tr *ngFor="let consumer of consumers">
-                <td>{{ consumer.name }}</td>
-                <td>{{ consumer.description }}</td>
-            </tr>
+            <ng-container *ngFor="let consumer of consumers">
+                <tr (click)="toggleExpand(consumer.id)" [class.expanded]="isExpanded(consumer.id)" style="cursor: pointer;">
+                    
+                    <td style="width: calc(100% - 30px);">{{ consumer.name }}</td>
+                    <td class="actions-column">
+                        <i
+                            class="bi"
+                            [class.bi-chevron-down]="isExpanded(consumer.id) && !isEditing(consumer.id)"
+                            [class.bi-chevron-right]="!isExpanded(consumer.id) && !isEditing(consumer.id)"
+                        ></i>
+                    </td>
+                </tr>
+                <tr class="expanded-row" *ngIf="isExpanded(consumer.id)">
+                    <td colspan="2">
+                      <form (ngSubmit)="saveEdit(consumer.id)" class="row g-3 expanded-form">
+                        <div class="col-md-6">
+                          <label for="name-{{ consumer.id }}" class="form-label">Name</label>
+                          <input type="text" class="form-control" id="name-{{ consumer.id }}" [(ngModel)]="editedDetail[consumer.id].name" [name]="'name-' + consumer.id">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="description-{{ consumer.id }}" class="form-label">Description</label>
+                          <input type="text" class="form-control" id="description-{{ consumer.id }}" [(ngModel)]="editedDetail[consumer.id].description" [name]="'description-' + consumer.id">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="plannerType-{{ consumer.id }}" class="form-label">Planner Type</label>
+                          <input type="text" class="form-control" id="plannerType-{{ consumer.id }}" [(ngModel)]="editedDetail[consumer.id].plannerType" [name]="'plannerType-' + consumer.id">
+                        </div>
+                      </form>
+                    </td>
+                  </tr>
+            </ng-container>
         </tbody>
     </table>
+    <div class="pagination-container">
+        <ngb-pagination
+        [collectionSize]="totalConsumers"
+        [(page)]="currentPage"
+        [pageSize]="pageSize"
+        (pageChange)="handlePageEvent($event)"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        ></ngb-pagination>
+    </div>
+    <div style="clear: both;"></div>
 </div>
+

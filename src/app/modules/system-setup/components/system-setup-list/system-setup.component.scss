@@ -92,19 +92,19 @@ th {
 
 // Forms
 .expanded-form {
-    padding: 10px;
-  }
-  
-  /* Optional overrides if Bootstrap's default spacing isn't what you want */
-  .expanded-form .col-md-6 {
-    margin-bottom: 8px; /* Adjust vertical spacing between rows */
-  }
-  
-  .expanded-form .form-label {
-    font-weight: bold;
-  }
-  
-  /* Adjust alignment of radio buttons if needed */
-  .expanded-form .form-check-inline {
-    margin-right: 15px;
-  }
+  padding: 10px;
+}
+
+/* Optional overrides if Bootstrap's default spacing isn't what you want */
+.expanded-form .col-md-6 {
+  margin-bottom: 8px; /* Adjust vertical spacing between rows */
+}
+
+.expanded-form .form-label {
+  font-weight: bold;
+}
+
+/* Adjust alignment of radio buttons if needed */
+.expanded-form .form-check-inline {
+  margin-right: 15px;
+}

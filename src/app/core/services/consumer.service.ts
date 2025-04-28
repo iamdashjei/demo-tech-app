@@ -28,4 +28,8 @@ export class ConsumerService {
 
         return this.http.get<ConsumerResponse>(this.apiUrl, { params });
     }
+
+    addConsumer(consumer: Consumer): Observable<Consumer> {
+        return this.http.post<Consumer>(`${this.apiUrl}`, consumer);
+    }
 }
